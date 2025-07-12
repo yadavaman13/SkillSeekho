@@ -14,11 +14,11 @@ import { Link } from "wouter";
 export default function Home() {
   const { user } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [selectedType, setSelectedType] = useState<string>("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedType, setSelectedType] = useState<string>("all");
 
   const { data: skills, isLoading: skillsLoading } = useQuery({
-    queryKey: ["/api/skills", selectedCategory, selectedType, searchTerm],
+    queryKey: ["/api/skills", selectedCategory === "all" ? undefined : selectedCategory, selectedType === "all" ? undefined : selectedType, searchTerm || undefined],
     enabled: !!user,
   });
 
@@ -180,7 +180,7 @@ export default function Home() {
                   <SelectValue placeholder="All Categories" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Categories</SelectItem>
+                  <SelectItem value="all">All Categories</SelectItem>
                   {categories?.map((category: any) => (
                     <SelectItem key={category.id} value={category.id.toString()}>
                       {category.name}
@@ -193,7 +193,7 @@ export default function Home() {
                   <SelectValue placeholder="All Types" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Types</SelectItem>
+                  <SelectItem value="all">All Types</SelectItem>
                   <SelectItem value="teach">Teaching</SelectItem>
                   <SelectItem value="learn">Learning</SelectItem>
                 </SelectContent>

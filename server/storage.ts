@@ -80,31 +80,32 @@ export class DatabaseStorage implements IStorage {
 
   // Skill operations
   async getSkills(filters?: { category?: number; type?: string; search?: string }): Promise<SkillWithUser[]> {
-    let query = db
+    let whereConditions = [eq(skills.isActive, true)];
+
+    if (filters?.category) {
+      whereConditions.push(eq(skills.categoryId, filters.category));
+    }
+
+    if (filters?.type) {
+      whereConditions.push(eq(skills.type, filters.type));
+    }
+
+    if (filters?.search) {
+      whereConditions.push(
+        or(
+          ilike(skills.title, `%${filters.search}%`),
+          ilike(skills.description, `%${filters.search}%`)
+        )!
+      );
+    }
+
+    const results = await db
       .select()
       .from(skills)
       .leftJoin(users, eq(skills.userId, users.id))
       .leftJoin(skillCategories, eq(skills.categoryId, skillCategories.id))
-      .where(eq(skills.isActive, true));
-
-    if (filters?.category) {
-      query = query.where(eq(skills.categoryId, filters.category));
-    }
-
-    if (filters?.type) {
-      query = query.where(eq(skills.type, filters.type));
-    }
-
-    if (filters?.search) {
-      query = query.where(
-        or(
-          ilike(skills.title, `%${filters.search}%`),
-          ilike(skills.description, `%${filters.search}%`)
-        )
-      );
-    }
-
-    const results = await query.orderBy(desc(skills.createdAt));
+      .where(and(...whereConditions))
+      .orderBy(desc(skills.createdAt));
     
     return results.map((row) => ({
       ...row.skills,

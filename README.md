@@ -17,11 +17,6 @@ SkillSeekho is a collaborative skill-exchange platform where users can connect w
 * [📄 License](#-license)
 * [🙌 Acknowledgements](#-acknowledgements)
 
----
-
-## 🌐 Live Demo
-
-🔗 [Visit SkillSeekho](https://skillswap-seven.vercel.app/)
 
 ---
 

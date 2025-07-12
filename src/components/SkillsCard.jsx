@@ -1,27 +1,33 @@
 import React from "react";
 
-function SkillsCard() {
+const SkillsCard = ({ title, skills, onEdit }) => {
   return (
-    <div className="d-flex gap-4 flex-wrap">
-      <div className="card p-3 shadow-sm flex-fill">
-        <h6 className="text-success">Skills I Offer</h6>
-        <div className="d-flex flex-wrap gap-2 mt-2">
-          <span className="badge bg-success-subtle text-success">React Development</span>
-          <span className="badge bg-success-subtle text-success">UI/UX Design</span>
-          <span className="badge bg-success-subtle text-success">Photography</span>
+    <div className="card shadow-sm border-0 mb-4">
+      <div className="card-body">
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h5 className="card-title mb-0">
+            <i className="bi bi-lightbulb-fill me-2 text-primary"></i>
+            {title}
+          </h5>
+          <button
+            className="btn btn-sm btn-outline-secondary"
+            onClick={onEdit}
+          >
+            <i className="bi bi-pencil me-1"></i>
+            Edit
+          </button>
         </div>
-      </div>
 
-      <div className="card p-3 shadow-sm flex-fill">
-        <h6 className="text-primary">Skills I Want</h6>
-        <div className="d-flex flex-wrap gap-2 mt-2">
-          <span className="badge bg-primary-subtle text-primary">Python</span>
-          <span className="badge bg-primary-subtle text-primary">Data Science</span>
-          <span className="badge bg-primary-subtle text-primary">Spanish</span>
+        <div className="d-flex flex-wrap gap-2">
+          {skills.map((skill, index) => (
+            <span key={index} className="badge bg-secondary p-2">
+              {skill}
+            </span>
+          ))}
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default SkillsCard;

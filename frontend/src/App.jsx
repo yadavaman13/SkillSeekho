@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import React from "react";
+import { AuthProvider } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
 import ProfileCard from "./components/ProfileCard";
 import SkillsCard from "./components/SkillsCard";
@@ -9,7 +10,7 @@ import QuickActions from "./components/QuickActions";
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <Navbar />
       <div className="container mt-4">
         <div className="row">
@@ -23,7 +24,7 @@ function App() {
           </div>
         </div>
       </div>
-    </>
+    </AuthProvider>
   );
 }
 

@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 8000;
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:5173', // Vite default port
+  origin: 'http://localhost:5173',
   credentials: true
 }));
 app.use(express.json());
@@ -41,16 +41,13 @@ pool.getConnection()
 // Make pool available to routes
 app.locals.db = pool;
 
-// Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/users', require('./routes/users'));
-app.use('/api/skills', require('./routes/skills'));
-app.use('/api/swaps', require('./routes/swaps'));
-app.use('/api/feedback', require('./routes/feedback'));
-
-// Health check endpoint
+// Simple test routes (without requiring route files)
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'SkillSwap API is running' });
+});
+
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'API is working!' });
 });
 
 // Error handling middleware
@@ -65,5 +62,5 @@ app.use('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+  console.log(`Simple server is running on port ${PORT}`);
+}); 

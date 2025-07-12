@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 🚀 SkillSeekho
 
 SkillSeekho is a collaborative skill-exchange platform where users can connect with others to teach and learn new skills. Whether you're a coder, artist, designer, or language enthusiast, SkillSeekho empowers you to grow with peers through direct, one-on-one learning experiences.
